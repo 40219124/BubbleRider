@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackG
+    uniqueID: 3076612689
+    locked: 0
+  - name: MidG
+    uniqueID: 2475858249
+    locked: 0
+  - name: NPC
+    uniqueID: 2013989583
+    locked: 0
+  - name: Player
+    uniqueID: 2916252303
+    locked: 0
+  - name: ForeG
+    uniqueID: 1208250309
+    locked: 0
