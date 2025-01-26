@@ -50,6 +50,13 @@ public class PlayerMover : MonoBehaviour
     }
     [SerializeField]
     Collider2D GroundCheckCollider;
+    [SerializeField]
+    CapsuleCollider2D BodyCollider;
+    Vector2 BodyCollHeights = new Vector2(0.5f, 0f);
+    Vector2 BodyCollOffsets = new Vector2(0.35f, 0f);
+    [SerializeField]
+    Transform Particles;
+    Vector2 ParticleHeights = new Vector2(0.4f, 0f);
 
     Vector2 LastInputDir;
     bool InputPushed;
@@ -69,6 +76,10 @@ public class PlayerMover : MonoBehaviour
         MoveAction = InputSystem.actions.FindAction("Move");
         JumpAction = InputSystem.actions.FindAction("Jump");
         InteractAction = InputSystem.actions.FindAction("Interact");
+
+        BodyCollHeights.y = BodyCollider.size.y;
+        BodyCollOffsets.y = BodyCollider.offset.y;
+        ParticleHeights.y = Particles.localPosition.y;
     }
 
     void Update()
@@ -101,6 +112,9 @@ public class PlayerMover : MonoBehaviour
         TimeSinceJumped += Time.fixedDeltaTime;
         TimeSinceAirborne += Time.fixedDeltaTime;
         TimeSinceLanded += Time.fixedDeltaTime;
+
+        AdjustHitboxes();
+
         if (JumpRequested > 0f)
         {
             JumpRequested = 0f;
@@ -165,5 +179,32 @@ public class PlayerMover : MonoBehaviour
         {
             GroundCount--;
         }
+    }
+
+    private void AdjustHitboxes()
+    {
+        if (TimeSinceAirborne > MaxJumpTime / 2f && !IsGrounded)
+        {
+            WhimSize(Mathf.Clamp01(Mathf.InverseLerp(MaxJumpTime * 2f, MaxJumpTime / 2f, TimeSinceAirborne)));
+        }
+        else
+        {
+            WhimSize(Mathf.Clamp01(Mathf.InverseLerp(0f, 0.2f, TimeSinceLanded)));
+        }
+    }
+
+    private void WhimSize(float t)
+    {
+        Vector3 pos = Particles.localPosition;
+        pos.y = Mathf.Lerp(ParticleHeights.x, ParticleHeights.y, t);
+        Particles.localPosition = pos;
+
+        Vector2 off = BodyCollider.offset;
+        off.y = Mathf.Lerp(BodyCollOffsets.x, BodyCollOffsets.y, t);
+        BodyCollider.offset = off;
+
+        Vector2 height = BodyCollider.size;
+        height.y = Mathf.Lerp(BodyCollHeights.x, BodyCollHeights.y, t);
+        BodyCollider.size = height;
     }
 }
