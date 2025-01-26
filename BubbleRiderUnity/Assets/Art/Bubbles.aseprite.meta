@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c340e13b6698104fa7cbb2e99754145
+guid: faa8e41c617215e4580d5b2e2f55de18
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,9 +123,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: WhimParticles
+  - name: Bubbles
     originalName: 
-    pivot: {x: 0.5135135, y: -0.07017544}
+    pivot: {x: 0.54545456, y: -0.17741935}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 37
-      height: 57
-    spriteID: 75015662b7485e6438e4aeef36957d75
+      width: 55
+      height: 62
+    spriteID: 70df4bd0a54268945b4d8b2303d0fa3d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,26 +147,38 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1442236690
-    name: WhimParticles
+    guid: 1409072589
+    name: Bubbles
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: WhimParticles
+    - name: Bubbles
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 5
-        y: 4
-        width: 37
-        height: 57
-      spriteId: 75015662b7485e6438e4aeef36957d75
+        x: 18
+        y: 11
+        width: 55
+        height: 62
+      spriteId: 70df4bd0a54268945b4d8b2303d0fa3d
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: Default
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 48, y: 64}
+  canvasSize: {x: 96, y: 96}
   previousTextureSize: {x: 64, y: 128}
