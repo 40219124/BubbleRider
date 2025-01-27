@@ -64,6 +64,7 @@ public class PlayerMover : MonoBehaviour
     float JumpRequested = 0f;
     bool InteractPushed;
 
+    private InputSystem_Actions inputSystem;
     InputAction MoveAction;
     InputAction JumpAction;
     InputAction InteractAction;
@@ -71,11 +72,15 @@ public class PlayerMover : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         Body = GetComponent<Rigidbody2D>();
 
-        MoveAction = InputSystem.actions.FindAction("Move");
-        JumpAction = InputSystem.actions.FindAction("Jump");
-        InteractAction = InputSystem.actions.FindAction("Interact");
+        inputSystem = new InputSystem_Actions();
+        inputSystem.Enable();
+
+        MoveAction = inputSystem.Player.Move;
+        JumpAction = inputSystem.Player.Jump;
+        InteractAction = inputSystem.Player.Interact;
 
         BodyCollHeights.y = BodyCollider.size.y;
         BodyCollOffsets.y = BodyCollider.offset.y;
@@ -91,16 +96,16 @@ public class PlayerMover : MonoBehaviour
             LastInputDir = MoveAction.ReadValue<Vector2>();
         }
 
-        if (JumpAction.WasPressedThisFrame())
-        {
-            Debug.Log($"Grounded:{IsGrounded}, Jump:{TimeSinceJumped}, Airborne:{TimeSinceAirborne}");
-        }
+        //if (JumpAction.WasPressedThisFrame())
+        //{
+        //    Debug.Log($"Grounded:{IsGrounded}, Jump:{TimeSinceJumped}, Airborne:{TimeSinceAirborne}");
+        //}
         if (IsGrounded || (TimeSinceJumped > MaxJumpTime && TimeSinceAirborne < 0.1f))
         {
-            if (JumpAction.WasPerformedThisFrame())
-            {
-                Debug.Log("Passed jump check");
-            }
+            //if (JumpAction.WasPerformedThisFrame())
+            //{
+            //    Debug.Log("Passed jump check");
+            //}
             JumpRequested = JumpAction.WasPressedThisFrame() ? JumpBuffer : JumpRequested;
         }
         InteractPushed = InteractAction.WasPressedThisFrame();
@@ -133,17 +138,8 @@ public class PlayerMover : MonoBehaviour
 
         Vector2 x = AccelerateTowards(desiredHor, Body.linearVelocityX * Vector2.right, Acceleration, Time.fixedDeltaTime);
 
-        //Vector2 diff = horVal - (Body.linearVelocityX * Vector2.right);
-
-        //Vector2 possible = horVal * Acceleration * Time.fixedDeltaTime;
-        //if (possible.sqrMagnitude > diff.sqrMagnitude)
-        //{
         Body.linearVelocityX = x.x;
-        //}
-        //else
-        //{
-        //    Body.linearVelocityX += possible.x;
-        //}
+        
         if (Body.linearVelocityX * Body.linearVelocityX < 0.01f)
         {
             Body.linearVelocityX = 0f;
